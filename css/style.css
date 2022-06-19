@@ -1,0 +1,528 @@
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+    margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --------------------------Общаг------------------------------------------------------------------------------------------- */
+body {
+    background-color: #ffdf8c;
+    padding: 50px;
+}
+.container {
+    max-width: 1235px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.wrapper {
+    border-radius: 10px;
+    min-height: 100%;
+    overflow: hidden;
+    background-color: white;
+    font-family: "Proxima Nova";
+}
+/* ------------------------Header--------------------------------------------------------------------------------------------- */
+.header {
+    padding: 30px 0px 50px 0px;
+    border-bottom: 1px solid gray;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-self: baseline;
+    align-items: center;
+}
+
+.logo-content {
+    display: flex;
+}
+
+.logo__icon {
+    object-fit: contain;
+}
+
+.logo__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+.logo__title {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.logo__slogan {
+    color: #7b7b7b;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.basket {
+    display: flex;
+    padding: 10px 10px;
+    border: none;
+    background-color: #fe5f1e;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.basket__sum {
+    padding-right: 15px;
+
+    border-right: 1px solid white;
+}
+
+.basket__content {
+    padding-left: 15px;
+
+    display: flex;
+}
+
+.basket-counter {
+    margin-left: 10px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+/* ------------------------Main--------------------------------------------------------------------------------------------- */
+/* ------------------------Category-sort-section--------------------------------------------------------------------------------------------- */
+.category-sort {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.categories {
+    display: flex;
+}
+
+.category {
+    color: #2c2c2c;
+    transition: 0.5s;
+    margin-left: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #f9f9f9;
+    border-radius: 30px;
+    border: 1px solid rgb(230, 224, 224);
+    background-color: rgb(230, 224, 224);
+}
+.category.active {
+    color: white;
+    background-color: black;
+    border-radius: 30px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------Product-line-section--------------------------------------------------------------------------------------------- */
+.product-line {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.product {
+    flex: 0 0 25%;
+}
+
+.product__icon {
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+.product__title {
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+}
+.product__select {
+    padding: 5px;
+    font-weight: 700;
+    font-size: 14px;
+    background: #f3f3f3;
+    border-radius: 10px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.select__dough {
+    display: flex;
+}
+
+.dough__property {
+    flex: 1 1 50%;
+    text-align: center;
+    padding: 10px 20px;
+}
+.dough__property.active {
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+}
+.size__number.active {
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
+}
+
+.select__size {
+    display: flex;
+    width: 100%;
+}
+
+.size__number {
+    flex: 1 1 33%;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.product__footer {
+    display: flex;
+    align-self: baseline;
+    justify-content: space-around;
+}
+
+.product__price {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.product__btn {
+    background: #ffffff;
+    border: 1px solid #eb5a1e;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #eb5a1e;
+    display: flex;
+    align-items: center;
+    flex: 0 0 40%;
+    transition: 0.5s;
+}
+.product__btn:hover {
+    background-color: #eb5a1e;
+    color: white;
+    transition: 0.5s;
+}
+.btn__inner {
+    word-spacing: 3;
+}
+
+.btn__counter {
+    text-align: center;
+    font-size: 14px;
+    margin-left: 10px;
+    color: white;
+    border-radius: 50%;
+    background-color: #eb5a1e;
+    width: 20%;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------Basket-container-------------------------------------------------------------------------------------------- */
+.basket-container {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.basket__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.basket-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+.basket-delete {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #b6b6b6;
+    margin-left: 10px;
+}
+.basket__content-remove {
+    cursor: pointer;
+}
+.basket-product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0px;
+}
+.basket-product__img {
+    width: 20%;
+}
+.basket-product__description {
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+
+.basket-product-title {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.basket-product-name {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.basket-product-catrgory {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.basket-product__switcher {
+    display: flex;
+    align-items: center;
+}
+
+.switcher__btn {
+    border: 2px solid #fe5f1e;
+    border-radius: 50%;
+    color: #fe5f1e;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18px;
+    padding: 0px 7px;
+}
+
+.switcer__num {
+    margin: 0 10px;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.basket-product__btn {
+    border: 2px solid #d7d7d7;
+    border-radius: 50%;
+    color: #d7d7d7;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18px;
+}
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+.basket-conunter--bold {
+    font-weight: 800;
+}
+.basket-sum--orange {
+    color: #fe5f1e;
+    font-weight: 800;
+}
+.basket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0px;
+}
+
+.basket-footer__buton {
+    background: #ffffff;
+    border: 1px solid #d3d3d3;
+    border-radius: 30px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.basket-footer__buton-return {
+    color: #cacaca;
+}
+.basket-footer__buton-return::before {
+    position: relative;
+    right: 5px;
+    top: 2px;
+    content: url("../img/basket-assets/_Path_.svg");
+}
+.basket-footer__buton-buy {
+    background: #fe5f1e;
+    border-radius: 30px;
+    color: white;
+}
+/* ---------------------------Empty-basket------------------------------------------------------------------------------------------ */
+
+.empty-basket {
+    text-align: center;
+    margin: 40px 0px;
+}
+
+.empty-basket__title {
+    font-weight: 700;
+    font-size: 32px;
+}
+.empty-basket__title::after {
+    position: relative;
+    top: 7px;
+    content: url("../img/basket-assets/😕.svg");
+}
+.empty-basket__subtitle {
+    color: #777777;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 26.17px;
+}
+.empty-basket__img {
+    width: 30%;
+    margin: 30px 0px;
+    margin-left: 38%;
+}
+
+.empty-basket__btn {
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 15px;
+    background: #282828;
+    border-radius: 30px;
+    color: white;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+/* ------------------------Footer--------------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+@media (min-width: 767px) {
+    /* ------------------------Header--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Main--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Footer--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+}
+@media (min-width: 992px) {
+    /* ------------------------Header--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Main--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Footer--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+}
+@media (min-width: 1200px) {
+    /* ------------------------Header--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Main--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Footer--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+}
+@media (min-width: 1680px) {
+    /* ------------------------Header--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Main--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+
+    /* ------------------------Footer--------------------------------------------------------------------------------------------- */
+
+    /* --------------------------------------------------------------------------------------------------------------------- */
+}

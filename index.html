@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper" id="app">
+        <div v-if="currentWindow" class="catalog">
+
+            <header class="header">
+                <div class="header__container container">
+                    <div class="logo-content">
+                        <img src="/img/header-assets/logo.jpg" alt="" class="logo__icon">
+                        <div class="logo__description">
+                            <span class="logo__title">
+                                REACT PIZZA
+                            </span>
+                            <span class="logo__slogan">
+                                самая вкусная пицца во вселенной
+                            </span>
+                        </div>
+                    </div>
+                    <button @click="currentWindow=false" class="basket">
+                        <span class="basket__sum">{{sumBasketPrices()}}</span>
+                        <div class="basket__content">
+                            <img src="/img/header-assets/basket.svg" alt="" class="basket-icon">
+                            <span class="basket-counter">
+                                {{SumQuantity()}}
+                            </span>
+                        </div>
+                    </button>
+                </div>
+            </header>
+            <main class="main">
+                <section class="category-sort container">
+                    <ul class="categories">
+                        <li class="category " :class="{ active: filter.category === 'all' }"
+                            @click="filter.category = 'all'">Все
+                        </li>
+                        <li class="category" v-for="category in categories" :key="category.id"
+                            :class="{ active: filter.category === category.id }" @click="filter.category = category.id">
+                            {{category.name}}</li>
+                    </ul>
+                    <div>
+                        <span> По:</span>
+                        <select v-model="filter.sort">
+                            <option value="popular">популярности</option>
+                            <option value="price">цене</option>
+                            <option value="alfavit">алфавиту</option>
+
+                        </select>
+                    </div>
+                </section>
+                <section class="product-line container">
+                    <div v-for="product in filteredProducts" :key="product.id" class="product">
+                        <img :src="'../img/product-assets/' + product.img" alt="" class="product__icon">
+                        <h3 class="product__title">{{product.name}}</h3>
+                        <div class="product__select">
+                            <div class="select__dough">
+                                <span class="dough__property" v-for="dough in productDoughs" :key="dough.id"
+                                    :class="{active: product.dough===dough.property}"
+                                    @click="product.dough=dough.property">{{dough.property}}</span>
+                            </div>
+                            <div class="select__size">
+                                <span v-for="width in productWidth" :key="width.id"
+                                    :class="{active: product.size===width.size}" @click="product.size=width.size"
+                                    class="size__number">{{width.size}} см.</span>
+
+                            </div>
+                        </div>
+                        <div class="product__footer">
+                            <span class="product__price">от {{product.price}} ₽</span>
+                            <button class="product__btn">
+                                <span @click="addToBasket(product)" class=" btn__inner">
+                                    + Добавить
+                                </span>
+                                <span v-if="product.quantity!==0" class=" btn__counter">
+                                    {{product.quantity}}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </section>
+            </main>
+        </div>
+        <div v-else class="basket-window">
+            <header class="header">
+                <div class="header__container container">
+                    <div class="logo-content">
+                        <img src="/img/header-assets/logo.jpg" alt="" class="logo__icon">
+                        <div class="logo__description">
+                            <span class="logo__title">
+                                REACT PIZZA
+                            </span>
+                            <span class="logo__slogan">
+                                самая вкусная пицца во вселенной
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </header>
+            <main class="main container">
+                <div v-if="basketProducts.length===0" class="empty-basket">
+                    <h2 class="empty-basket__title">Корзина пустая </h2>
+                    <span class="empty-basket__subtitle">Вероятней всего, вы не заказывали ещё пиццу. <br>
+                        Для того, чтобы заказать пиццу, перейди на главную страницу.</span>
+                    <img src="/img/basket-assets/tmpty.png" alt="" class="empty-basket__img">
+                    <button @click="currentWindow=true" class="empty-basket__btn">Вернуться назад</button>
+                </div>
+                <div v-else class="basket-container">
+                    <div class="basket__header">
+                        <div class="basket__content">
+                            <img src="/img/basket-assets/iconfinder_shopping-cart_2561279 1.svg" alt=""
+                                class="basket-icon">
+                            <span class="basket-title">
+                                Корзина
+                            </span>
+                        </div>
+                        <div class="basket__content basket__content-remove">
+                            <img src="/img/basket-assets/iconfinder_trash-2_3324927 1.svg" alt="">
+                            <span @click="clearBasket()" class="basket-delete">
+                                Очистить корзину
+                            </span>
+                        </div>
+                    </div>
+                    <div class="basket-main">
+                        <div class="basket-product__line">
+                            <div v-for="item in basketProducts" :key="item" class="basket-product">
+                                <div class="basket-product__description">
+                                    <img :src="'../img/product-assets/' + item.img" alt="" class="basket-product__img">
+                                    <div class="basket-product-title">
+                                        <span class="basket-product-name">{{item.name}}</span>
+                                        <span class="basket-product-catrgory">{{item.dough}}, {{item.size}}
+                                            см.</span>
+                                    </div>
+                                </div>
+                                <div class="basket-product__switcher">
+                                    <button @click="switcherQuantityMinus(item)"
+                                        class="switcher__btn switcher__minus">-</button>
+                                    <span class="switcer__num">{{item.quantity}}</span>
+                                    <button @click="switcherQuantityPlus(item)"
+                                        class="switcher__btn switcher__plus">+</button>
+                                </div>
+                                <span class="product__price">{{item.price * item.quantity }} </span>
+                                <button @click="deletFromBasket(item.id)" class="basket-product__btn">
+                                    x
+                                </button>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <span class="basket-conunter">Всего пицц: <span
+                                    class="basket-conunter--bold">{{SumQuantity()}}</span>
+                            </span>
+                            <span class="basket-sum">Сумма заказа: <span
+                                    class="basket-sum--orange">{{sumBasketPrices()}}₽</span> </span>
+                        </div>
+                    </div>
+                    <div class="basket-footer">
+                        <button @click="currentWindow=true" class="basket-footer__buton basket-footer__buton-return">
+                            Вернуться назад</button>
+                        <button class="basket-footer__buton basket-footer__buton-buy"> Оплатить сейчас</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/vue.global.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
